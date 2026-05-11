@@ -10,27 +10,23 @@ if ($id <= 0) {
     exit;
 }
 
-// 1. COMPROVACIÓ: Té visites aquest animal al seu historial?
-// Nota: Comprova que la teva columna a la taula visites es digui 'id_animal'. Si es diu diferent, canvia-ho aquí.
-$check_sql = "SELECT COUNT(*) AS total FROM visites WHERE id_animal = $id";
-$check_res = mysqli_query($conn, $check_sql);
+// 1. BORRAR LES VISITES DE L'ANIMAL
+$delete_visites_sql = "DELETE FROM visites WHERE id_animal = $id";
 
-if ($check_res) {
-    $row = mysqli_fetch_assoc($check_res);
-    if ($row['total'] > 0) {
-        // Si té visites (> 0), redirigim al llistat amb l'error personalitzat que ja vam configurar
-        header('Location: Animals.php?error_visites=1');
-        exit;
-    }
+if (!mysqli_query($conn, $delete_visites_sql)) {
+    // Si hi ha error en borrar les visites
+    header('Location: Animals.php?error=' . urlencode(mysqli_error($conn)));
+    exit;
 }
 
-// 2. Si no té visites, executem el DELETE
-$sql = "DELETE FROM animals WHERE id = $id";
+// 2. BORRAR L'ANIMAL
+$delete_animal_sql = "DELETE FROM animals WHERE id = $id";
 
-if (mysqli_query($conn, $sql)) {
+if (mysqli_query($conn, $delete_animal_sql)) {
+    // Éxit: animal i visites esborrats
     header('Location: Animals.php?esborrat=1');
 } else {
-    // Si hi ha un altre error de base de dades, el passem per la URL
+    // Error en borrar l'animal
     header('Location: Animals.php?error=' . urlencode(mysqli_error($conn)));
 }
 exit;
