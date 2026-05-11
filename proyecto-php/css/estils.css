@@ -1,0 +1,261 @@
+/* ■■ Reset Global i Fonaments ■■ */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth; /* Moviment suau entre seccions */
+}
+
+body {
+    background: #f0f4f8; /* Fons gris-blavós molt suau per ressaltar el Glassmorphism */
+    margin: 0;
+    padding: 0;
+    color: #2c3e50;
+}
+
+/* ■■ Navegació (Glassmorphism + Fantasma) ■■ */
+nav {
+background: transparent;
+    padding: 20px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+nav a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 22px;
+    pointer-events: all;
+    /* Estil Fantasma */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    
+    /* Efecte Glassmorphism */
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover {
+    background: rgba(26, 188, 156, 0.2);
+    border-color: #1abc9c;
+    color: #16a085;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(26, 188, 156, 0.2);
+}
+
+/* Classe per indicar la pàgina on estem (opcional) */
+nav a.active {
+    background: #1abc9c;
+    color: white;
+    border-color: #16a085;
+}
+
+/* ■■ Contenidor Principal ■■ */
+.contenidor {
+    padding: 40px 30px;
+    max-width: 1150px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: #1abc9c;
+    border-radius: 2px;
+}
+
+/* ■■ Taules (Modernes i Netes) ■■ */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-top: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: #34495e;
+    color: white;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+tr:hover { background: #f8fafc; }
+
+/* Columna d'accions: Ajustada perquè no s'encavalquin els botons */
+th:last-child, td:last-child {
+    text-align: center;
+    width: 180px; 
+    white-space: nowrap; /* Impedeix que els botons saltin de línia */
+}
+
+/* ■■ Botons i Elements d'Interacció ■■ */
+button[type='submit'], .btn-tornar, .btn-editar, .btn-esborrar {
+    display: inline-block;
+    vertical-align: middle; /* Aliniació perfecta */
+    border: none;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+button[type='submit'] {
+    background: #1abc9c;
+    color: white;
+    padding: 12px 25px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(26, 188, 156, 0.3);
+}
+
+button[type='submit']:hover {
+    background: #16a085;
+    transform: translateY(-2px);
+}
+
+.btn-editar {
+    background-color: #3498db;
+    color: white;
+    padding: 6px 14px;
+    margin-right: 4px;
+}
+
+.btn-esborrar {
+    background-color: #e74c3c;
+    color: white;
+    padding: 6px 14px;
+}
+
+.btn-tornar {
+    background: #95a5a6;
+    color: white;
+    padding: 12px 25px;
+    margin-top: 20px;
+}
+
+/* ■■ Formularis ■■ */
+form {
+    background: white;
+    padding: 35px;
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border-radius: 16px;
+}
+
+label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+input[type='text'], input[type='email'], input[type='date'], 
+input[type='number'], select, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #1abc9c;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.1);
+}
+
+/* ■■ Missatges i Alertes ■■ */
+.missatge-ok { background: #e2fbd7; color: #2d8042; padding: 15px; border-radius: 10px; font-weight: 600; margin-bottom: 20px; border-left: 5px solid #2d8042; }
+.missatge-error { background: #ffe3e3; color: #c62828; padding: 15px; border-radius: 10px; font-weight: 600; margin-bottom: 20px; border-left: 5px solid #c62828; }
+
+/* ■■ Dashboard (Estadístiques) ■■ */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.card {
+    border-radius: 20px;
+    padding: 30px 20px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover { transform: translateY(-8px); }
+.card h3 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.85; }
+.card .num { font-size: 42px; font-weight: 800; margin-top: 10px; }
+
+.bg-blau { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.bg-verd { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #1a4f32; }
+.bg-taronja { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+.bg-lila { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+.panel {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.panel h2 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #edf2f7; padding-bottom: 15px; }
+
+/* ■■ Peu de pàgina ■■ */
+footer {
+    margin-top: 60px;
+    padding: 40px;
+    color: #a0aec0;
+    font-size: 13px;
+    text-align: center;
+}
