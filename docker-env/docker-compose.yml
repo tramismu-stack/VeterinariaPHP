@@ -15,7 +15,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: tienda
+      MYSQL_DATABASE: veterinaria
       MYSQL_USER: alumno
       MYSQL_PASSWORD: alumno123
     volumes:
