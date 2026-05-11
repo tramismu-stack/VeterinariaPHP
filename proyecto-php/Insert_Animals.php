@@ -2,11 +2,11 @@
 require 'db.php';
 $errors = [];
 
-// 🔥 PROPIETARIOS para el select
+//  PROPIETARIOS para el select
 $sql_propietaris = "SELECT id, nom FROM propietaris ORDER BY nom";
 $result_propietaris = mysqli_query($conn, $sql_propietaris);
 
-// 🔥 INSERT ANIMAL
+//  INSERT ANIMAL
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nom            = trim($_POST["nom"] ?? '');
