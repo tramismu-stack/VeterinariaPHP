@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
 $(document).ready(function() {
 
-    // --- VALIDACIÓ EN TEMPS REAL ---
+    // --- VALIDACIÓ SOLO AL SUBMIT ---
     function validateForm() {
         const errors = [];
 
@@ -164,22 +164,20 @@ $(document).ready(function() {
         }
     }
 
-    // Escoltar els canvis en tots els inputs
-    ['nom', 'telefon', 'email', 'adreca'].forEach(function(id) {
-        document.getElementById(id).addEventListener('input', function() {
-            renderErrors(validateForm());
-        });
-        document.getElementById(id).addEventListener('change', function() {
-            renderErrors(validateForm());
-        });
+    // SOLO validar cuando intentes hacer submit
+    document.getElementById('propietari-form').addEventListener('submit', function(e) {
+        const errors = validateForm();
+        if (errors.length > 0) {
+            e.preventDefault();
+            renderErrors(errors);
+            document.getElementById('error-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
     });
 
-    // Càrrega inicial d'errors si ve de PHP o està buit a l'inici
+    // Mostrar errores si vuelves del PHP con errores de base de datos
     if (typeof window._phpErrors !== 'undefined' && window._phpErrors.length > 0) {
         renderErrors(window._phpErrors);
-    } else {
-        const initial = validateForm();
-        if (initial.length > 0) renderErrors(initial);
+        document.getElementById('error-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 });
 </script>

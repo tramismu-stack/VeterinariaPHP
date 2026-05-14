@@ -103,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php require 'header.php'; ?>
 <h1>Nova Visita</h1>
 
-<!-- BLOQUE DE ERRORES (se llena en tiempo real por JS, o por PHP si hubo submit) -->
 <div class="error-box" id="error-box" style="display:none;">
     <p class="error-title">⚠️ Si us plau, corregeix el següent abans de continuar:</p>
     <ul id="error-list"></ul>
@@ -111,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php if (!empty($errors)): ?>
 <script>
-    // Errores de PHP (post-submit) precargados al cargar la página
     window._phpErrors = <?php echo json_encode(array_values($errors)); ?>;
 </script>
 <?php endif; ?>
@@ -170,7 +168,7 @@ $(document).ready(function() {
         width: 'resolve'
     });
 
-    // --- VALIDACIÓN EN TIEMPO REAL ---
+    // --- VALIDACIÓN SOLO AL SUBMIT ---
 
     function validateForm() {
         const errors = [];
@@ -240,28 +238,20 @@ $(document).ready(function() {
         }
     }
 
-    // Escuchar cambios en todos los campos
-    ['data_visita', 'motiu', 'diagnostic', 'preu'].forEach(function(id) {
-        document.getElementById(id).addEventListener('input', function() {
-            renderErrors(validateForm());
-        });
-        document.getElementById(id).addEventListener('change', function() {
-            renderErrors(validateForm());
-        });
+    // SOLO validar cuando intentes hacer submit
+    document.getElementById('visita-form').addEventListener('submit', function(e) {
+        const errors = validateForm();
+        if (errors.length > 0) {
+            e.preventDefault();
+            renderErrors(errors);
+            document.getElementById('error-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
     });
 
-    // Select2 necesita evento especial
-    $('#animal-select').on('change', function() {
-        renderErrors(validateForm());
-    });
-
-    // Si PHP mandó errores tras el submit, mostrarlos de entrada
+    // Mostrar errores si vuelves del PHP con errores de base de datos
     if (typeof window._phpErrors !== 'undefined' && window._phpErrors.length > 0) {
         renderErrors(window._phpErrors);
-    } else {
-        // Validar al cargar si ya hay datos (ej: volver atrás en el navegador)
-        const initial = validateForm();
-        if (initial.length > 0) renderErrors(initial);
+        document.getElementById('error-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 });
 </script>

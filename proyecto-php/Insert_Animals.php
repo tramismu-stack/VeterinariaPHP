@@ -155,7 +155,7 @@ $(document).ready(function() {
         width: 'resolve'
     });
 
-    // --- VALIDACIÓN EN TIEMPO REAL ---
+    // --- VALIDACIÓN SOLO AL SUBMIT ---
 
     function validateForm() {
         const errors = [];
@@ -220,24 +220,21 @@ $(document).ready(function() {
         }
     }
 
-    ['nom', 'especie', 'raca', 'data_naixement'].forEach(function(id) {
-        document.getElementById(id).addEventListener('input', function() {
-            renderErrors(validateForm());
-        });
-        document.getElementById(id).addEventListener('change', function() {
-            renderErrors(validateForm());
-        });
+    // SOLO validar cuando intentes hacer submit
+    document.getElementById('animal-form').addEventListener('submit', function(e) {
+        const errors = validateForm();
+        if (errors.length > 0) {
+            e.preventDefault(); // Evita que se envíe el formulario
+            renderErrors(errors);
+            // Scroll al cuadro de errores
+            document.getElementById('error-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
     });
 
-    $('#propietari-select').on('change', function() {
-        renderErrors(validateForm());
-    });
-
+    // Mostrar errores si vuelves del PHP con errores de base de datos
     if (typeof window._phpErrors !== 'undefined' && window._phpErrors.length > 0) {
         renderErrors(window._phpErrors);
-    } else {
-        const initial = validateForm();
-        if (initial.length > 0) renderErrors(initial);
+        document.getElementById('error-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 });
 </script>
