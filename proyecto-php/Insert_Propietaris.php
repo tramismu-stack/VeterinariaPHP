@@ -2,7 +2,7 @@
 require 'db.php';
 $errors = [];
 
-// 🔥 INSERT PROPIETARI
+// INSERT PROPIETARI
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nom     = trim($_POST["nom"] ?? '');

@@ -4,7 +4,7 @@ $missatge = '';
 $tipus = '';
 $errors = [];
 
-// 🔥 ANIMALES + PROPIETARIOS
+//  ANIMALES + PROPIETARIOS
 $sql_animals = "
     SELECT 
         animals.id, 
@@ -15,7 +15,7 @@ $sql_animals = "
     ORDER BY animals.nom";
 $result_animals = mysqli_query($conn, $sql_animals);
 
-// 🔥 INSERT VISITA
+//  INSERT VISITA
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data_visita = trim($_POST["data_visita"] ?? '');
